@@ -2,13 +2,6 @@ from manim import *
 
 class BijectionNatural(Scene):
     def construct(self):
-        # Create title
-        title = Text("Bijection: Natural Numbers ↔ Even Numbers", font_size=32)
-        self.play(Write(title))
-        self.wait(1)
-        self.play(title.animate.to_edge(UP))
-        self.wait(0.5)
-
         # Create two ovals for sets
         left_oval = Ellipse(width=2, height=5, color=BLUE).shift(LEFT*3)
         right_oval = Ellipse(width=2, height=5, color=RED).shift(RIGHT*3)
@@ -89,9 +82,9 @@ class BijectionNatural(Scene):
         self.wait(5)
 
         # Final conclusion
-        # conclusion = Text("Bijection exists: Same Cardinality!", color=GREEN)
-        # self.play(
-        #     ReplacementTransform(general_rule, conclusion),
-        #     run_time=1.5
-        # )
-        # self.wait(3)
+        conclusion = Text("Bijection exists: Same Cardinality!", color=GREEN)
+        self.play(
+            ReplacementTransform(general_rule, conclusion),
+            run_time=1.5
+        )
+        self.wait(3)
