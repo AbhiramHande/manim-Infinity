@@ -8,7 +8,7 @@ class Cardinality(Scene):
 
         right_set_center_x = [1, 1, -1, 0]
         right_set_center_y = [-1.5, 1, -0.5, 0]
-        # Create elements for Set A (red circles) and Set B (blue squares)
+
         elements_a = VGroup()
         for i in range(4):
             circle = Circle(radius=0.2, fill_opacity=1, color=RED)
@@ -27,16 +27,9 @@ class Cardinality(Scene):
         right_set = Circle(radius=2.5, color=BLUE)
         right_set.set_fill(BLUE, opacity=0.3) 
         right_set.shift(RIGHT*3)
-        # left_shape = create_cloud_shape(LEFT*3)
-        # left_shape.set_fill(RED)
-        # right_shape = create_cloud_shape(RIGHT*3)
-        # right_shape.set_fill(BLUE)
-
-        # Set labels
         label_a = Text("Set A").next_to(left_set, UP)
         label_b = Text("Set B").next_to(right_set, UP)
-
-        # Show shapes and elements
+        
         self.play(
             LaggedStart(
                 Create(left_set),
@@ -55,7 +48,6 @@ class Cardinality(Scene):
         )
         self.wait(1)
 
-        # Animate elements forming columns
         elements_a.generate_target()
         elements_a.target.arrange(DOWN, buff=0.5).shift(LEFT*3)
         elements_b.generate_target()
@@ -71,8 +63,7 @@ class Cardinality(Scene):
             run_time=3
         )
         self.wait(1)
-
-        # Create bijection arrows
+        
         arrows = VGroup()
         for a, b in zip(elements_a, elements_b):
             arrow = Arrow(
@@ -89,7 +80,6 @@ class Cardinality(Scene):
             run_time=3
         ))
         
-        # Add bijection text
         bijection_text = Text("One-to-One Correspondence", color=YELLOW).to_edge(DOWN)
         self.play(Write(bijection_text))
         self.wait(2)
