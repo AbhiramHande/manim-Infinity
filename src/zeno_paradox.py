@@ -1,3 +1,4 @@
+#TODO. This has not been completed 
 from manim import *
 
 class ZenosParadox(Scene):
