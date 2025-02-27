@@ -1,7 +1,7 @@
 from manim import *
 import numpy as np
 
-class Cardinality2(Scene):
+class Cardinality(Scene):
     def construct(self):
         left_set_center_x = [-1.5, -0.5, 2, 1.5]
         left_set_center_y = [1.5, -1.5, 1, 0]
