@@ -2,12 +2,10 @@ from manim import *
 
 class InfiniteSet(Scene):
     def construct(self):
-        # Create main set (oval)
         main_set = Ellipse(width=2, height=6, color=BLUE).shift(LEFT*3)
         main_set.set_fill(BLUE, opacity=0.3)
         main_label = Text("Set A").next_to(main_set, UP)
 
-        # Create subset
         subset = Ellipse(width=1, height=3, color=GREEN)
         subset.move_to(main_set.get_center())
 
@@ -15,11 +13,8 @@ class InfiniteSet(Scene):
         subset_new.set_fill(GREEN, opacity=0.3)
         subset_label = MathTex("B \subset A").next_to(subset_new, UP)
         
-        # Animation sequence
         self.play(Create(main_set), Write(main_label))
-        self.wait(2)  # Initial wait
-        
-        # Create and move subset
+        self.wait(2)  
         self.play(Create(subset))
         self.wait(1)
         self.play(
@@ -28,7 +23,6 @@ class InfiniteSet(Scene):
         )
         self.wait(2)
         
-        # Create bijection arrow
         arrow = DoubleArrow(
             main_set.get_right(),
             subset.get_left(),
@@ -39,7 +33,6 @@ class InfiniteSet(Scene):
         self.play(Create(arrow))
         self.wait(2)
 
-        # Cleanup
         self.play(
             FadeOut(arrow),
             FadeOut(main_set),
