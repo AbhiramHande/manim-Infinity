@@ -3,17 +3,12 @@ import numpy as np
 
 class Cardinality2(Scene):
     def construct(self):
-        # Title
-        title = Text("Cardinality: Bijection Between Sets", font_size=32)
-        self.play(Write(title))
-        self.wait(1)
-        self.play(FadeOut(title))
-
         left_set_center_x = [-1.5, -0.5, 2, 1.5]
         left_set_center_y = [1.5, -1.5, 1, 0]
 
         right_set_center_x = [1, 1, -1, 0]
         right_set_center_y = [-1.5, 1, -0.5, 0]
+        
         # Create elements for Set A (red circles) and Set B (blue squares)
         elements_a = VGroup()
         for i in range(4):
@@ -33,10 +28,6 @@ class Cardinality2(Scene):
         right_set = Circle(radius=2.5, color=BLUE)
         right_set.set_fill(BLUE, opacity=0.3) 
         right_set.shift(RIGHT*3)
-        # left_shape = create_cloud_shape(LEFT*3)
-        # left_shape.set_fill(RED)
-        # right_shape = create_cloud_shape(RIGHT*3)
-        # right_shape.set_fill(BLUE)
 
         # Set labels
         label_a = Text("Set A").next_to(left_set, UP)
@@ -96,14 +87,6 @@ class Cardinality2(Scene):
         ))
         
         # Add bijection text
-        bijection_text = Text("Bijection: One-to-One Correspondence", color=YELLOW).to_edge(DOWN)
+        bijection_text = Text("One-to-One Correspondence", color=YELLOW).to_edge(DOWN)
         self.play(Write(bijection_text))
-        self.wait(2)
-        
-        # Final transformation
-        conclusion = Text("Same Cardinality!", color=GREEN).scale(1.2)
-        self.play(
-            ReplacementTransform(bijection_text, conclusion),
-            run_time=1.5
-        )
         self.wait(2)
