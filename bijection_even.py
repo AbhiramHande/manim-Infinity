@@ -86,9 +86,9 @@ class BijectionNaturalEven(Scene):
         self.wait(5)
 
         # Final conclusion
-        # conclusion = Text("Bijection exists: Same Cardinality!", color=GREEN)
-        # self.play(
-        #     ReplacementTransform(general_rule, conclusion),
-        #     run_time=1.5
-        # )
-        # self.wait(3)
+        conclusion = Text("Bijection exists: Same Cardinality!", color=GREEN)
+        self.play(
+            ReplacementTransform(general_rule, conclusion),
+            run_time=1.5
+        )
+        self.wait(3)
