@@ -2,7 +2,6 @@ from manim import *
 
 class GeometricSeries(Scene):
     def construct(self):
-        # Write the equation and move to top
         title = MathTex(r"\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + \frac{1}{32} + \cdots = \quad ?")
         self.play(Write(title))
         self.wait(1)
@@ -12,9 +11,9 @@ class GeometricSeries(Scene):
         center_group = VGroup()
         previous_right_group = None  # To track previous right-side elements
         
-        # Starting dimensions (scaled down for better visibility)
+        # Starting dimensions (scaled up for better visibility)
         current_x, current_y = -4, -2
-        center_x = [0, -1/4, 1/4, -1/8, 1/8, -1/16, 1/16, -1/32, 1/32, -1/64, 1/64, -1/128, 1/128]
+        center_x = [0, -1/4, 1/4, -1/8, 1/8, -1/16, 1/16, -1/32, 1/32, -1/64, 1/64, -1/128, 1/128]  #My assumption is that 0 can be replaced with 1/2 if I remove the conditional update later on
         center_y = [-1/4, 1/4, -1/8, 1/8, -1/16, 1/16, -1/32, 1/32, -1/64, 1/64, -1/128, 1/128]
         scale = 3
         current_width, current_height = 3.0, 3.0
@@ -26,45 +25,33 @@ class GeometricSeries(Scene):
                 self.remove(previous_right_group)
 
             if i % 2 == 0:
-                # Horizontal split (rectangle)
                 new_height = current_height / 2
-                
-                # Right-side elements
                 rect_right = Rectangle(width=current_width, height=new_height, color=BLUE)
                 rect_right.set_fill(TEAL_A, opacity=0.2)
                 rect_right.shift(RIGHT*3)
                 area_label = MathTex(r"\text{Area} = \frac{1}{%d}" % (2**(i+1))).next_to(rect_right, UP)
                 
-                # Arrows and labels
                 length_arrow = DoubleArrow(rect_right.get_left(), rect_right.get_right(), buff=0).next_to(rect_right, DOWN)
                 length_label = MathTex(f"{current_width/scale:.2f}").scale(0.7).next_to(length_arrow, DOWN)
                 height_arrow = DoubleArrow(rect_right.get_bottom(), rect_right.get_top(), buff=0).next_to(rect_right, LEFT)
                 height_label = MathTex(f"{new_height/scale:.2f}").scale(0.7).next_to(height_arrow, LEFT)
                 
                 shape_group = VGroup(rect_right, area_label, length_arrow, length_label, height_arrow, height_label)
-                
-                # Update remaining area dimensions
                 current_y += new_height
                 current_height = new_height
             else:
-                # Vertical split (square)
                 new_width = current_width / 2
-                
-                # Right-side elements
                 square_right = Rectangle(width=new_width, height=current_height, color=BLUE)
                 square_right.set_fill(TEAL_A, opacity=0.2)
                 square_right.shift(RIGHT*3)
                 area_label = MathTex(r"\text{Area} = \frac{1}{%d}" % (2**(i+1))).next_to(square_right, UP)
                 
-                # Arrow and label
                 side_arrow = DoubleArrow(square_right.get_left(), square_right.get_right(), buff=0).next_to(square_right, DOWN)
                 side_label = MathTex(f"{new_width/3:.2f}").scale(0.7).next_to(side_arrow, DOWN)
                 up_arrow = DoubleArrow(square_right.get_left(), square_right.get_right(), buff=0).rotate(PI/2).next_to(square_right, LEFT)
                 up_label = MathTex(f"{new_width/3:.2f}").scale(0.7).next_to(side_arrow, LEFT)
                 
                 shape_group = VGroup(square_right, area_label, side_arrow, side_label, up_arrow, up_label)
-                
-                # Update remaining area dimensions
                 if i != 1: current_x -= new_width
                 current_width = new_width
 
@@ -81,8 +68,6 @@ class GeometricSeries(Scene):
             )
             self.wait(1)
 
-            # Create center shape (invisible placeholder)
-
             # Copy to center
             copy_shape = shape_group[0].copy()
             center_shape = rect_right if i % 2 == 0 else square_right
@@ -93,7 +78,7 @@ class GeometricSeries(Scene):
 
             previous_right_group = shape_group
 
-        
+        # Remove the labels and shape on the right
         if previous_right_group:
             self.play(FadeOut(previous_right_group))
             self.remove(previous_right_group)
@@ -113,7 +98,6 @@ class GeometricSeries(Scene):
         up_arrow = DoubleArrow(square.get_left(), square.get_right(), buff=0).rotate(PI/2).next_to(square, LEFT)
         up_label = Text("1.00").scale(0.7).next_to(side_arrow, LEFT)
 
-        # Fade elements and reveal result
         self.play(
             FadeOut(center_group),
             Transform(bounding_square, square),
@@ -124,8 +108,6 @@ class GeometricSeries(Scene):
             runtime=3
         )
         
-
-
         area_label = Text("Area = 1").move_to(3*DOWN)
         self.play(Write(area_label))
         self.wait(2)
